@@ -11,6 +11,10 @@
     <body>
         <header>
             <h2>Login</h2>
+            <ul id='tags'>
+                <li><a href="https://grvenkat40-portfolio.onrender.com/">My Profile</a></li>
+                <li><a href="{{url_for('contact')}}">Contact</a> </li>
+            </ul>
         </header>
         <p>Hello User, we are pleased to Welcome you again😊🤝</p>
         <div class="submissionForm">
@@ -24,13 +28,11 @@
             </form>
         </div>
         <p>If you are new, Please <a href="{{url_for('register') }}">Register First-></a></p>
-        {% with messages=get_flashed_messages() %}
-            {%if messages %}
-                <ul>
-                    {% for message in messages %}
-                    <li>{{message}}</li>
-                    {% endfor %}
-                </ul>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <script>
+                    alert('{{ messages[0] }}');
+                </script>
             {% endif %}
         {% endwith %}
         <script src="{{url_for('static',filename='script.js')}}" async defer></script>

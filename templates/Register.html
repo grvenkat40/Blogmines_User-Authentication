@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Register</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{url_for('static',filename='register_style.css')}}">
@@ -24,7 +24,15 @@
                 <button type="submit">Submit</button>
             </form>
         </div>
+        <a id="back" href="{{url_for('login')}}"><-Back</a>
         
         <script src="{{url_for('static',filename='script.js')}}" async defer></script>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <script>
+                    alert('{{ messages[0] }}');
+                </script>
+            {% endif %}
+        {% endwith %}
     </body>
 </html>

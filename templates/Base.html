@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>User Authentication</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static',filename='base_style.css') }}">
+    </head>
+    <body>
+        <header>
+            <h2>BlogMines</h2>
+            <ul id='tags'>
+                <li><a href="https://grvenkat40-portfolio.onrender.com/">My Profile</a></li>
+                <li><a href="{{url_for('contact')}}">Contact</a> </li>
+            </ul>
+        </header>
+        <section>
+            <p>Hello User,you can post blogs on this site😊🤝</p>
+
+            <div class="BlogForm">
+                <form method="post" action="" enctype="multipart/form-data">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" placeholder="Title Name" required>
+                    <label for="description">Description</label>
+                    <textarea name="description" placeholder="description" required></textarea>
+                    <div id="buttons">
+                        <button type="submit">Submit</button>
+                        <button type="reset">Clear</button>
+                        <label for="fileInput" class="file-upload">📂 Choose Image</label>
+                        <input type="file" name="fileInput" id="fileInput" accept="image/*">
+                        <!-- <input type="file" placeholder="Choose Image"> -->
+                    </div>
+                </form>
+                <a href="#blogs-" id="view">View blogs</a>
+                {% with messages=get_flashed_messages() %}
+                    {%if messages%}    
+                        <script>
+                            alert('{{messages[0]}}');
+                        </script>
+                    {%endif%}
+                {%endwith%}
+            </div>
+            
+        </section>
+        <section class="blogs-" id="blogs-">
+            <h2>Blogs</h2>
+            <div class="blogs-grid">
+            {% for blog in blogs %}
+                <div class="blog-card">
+                    {% if blog.file_path %}
+                        <img src="{{ url_for('static', filename=blog.file_path) }}" alt="Blog Image">
+                    {% endif %}
+                    <h3>{{ blog.title }}</h3>
+                    <p>{{ blog.description[:250] }}...</p>
+                    <small>Posted on {{ blog.created_at }}</small>
+                </div>
+            {% endfor %}
+            </div>
+        </section>
+
+
+        </section>
+        <script src="{{url_for('static',filename='script.js')}}" async defer></script>
+    </body>
+</html>
