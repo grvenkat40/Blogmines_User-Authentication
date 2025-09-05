@@ -10,15 +10,18 @@
     </head>
     <body>
         <header>
+            <img src="{{url_for('static',filename='images/venkat_title.png')}}" alt="Venkat">
             <h2>BlogMines</h2>
             <ul id='tags'>
                 <li><a href="https://grvenkat40-portfolio.onrender.com/">My Profile</a></li>
                 <li><a href="{{url_for('contact')}}">Contact</a> </li>
+                <li><a href="{{url_for('logout')}}" class="logout-link">Logout</a> </li>
             </ul>
         </header>
-        <section>
-            <p>Hello User,you can post blogs on this site😊🤝</p>
-
+        <div>
+            <h2 id="make_blog">Make your blogs👋</h2>
+        </div>
+        <section class="section_head">
             <div class="BlogForm">
                 <form method="post" action="" enctype="multipart/form-data">
                     <label for="title">Title</label>
@@ -51,17 +54,53 @@
                 <div class="blog-card">
                     {% if blog.file_path %}
                         <img src="{{ url_for('static', filename=blog.file_path) }}" alt="Blog Image">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='uploads/default.jpg') }}" alt="Default Image">
                     {% endif %}
-                    <h3>{{ blog.title }}</h3>
-                    <p>{{ blog.description[:250] }}...</p>
-                    <small>Posted on {{ blog.created_at }}</small>
-                </div>
+                    <div id="title_des">
+                        <h3>{{ blog.title }}</h3>
+                        <p>{{ blog.description[:350] }}...</p>
+                    </div>
+                    <div id="small">
+                        <small>Posted on <span>{{ blog.created_at.strftime('%Y-%m-%d') }}</span></small>
+                        <small>created by <span>{{blog.userid[:10]}}</span></small>
+                    </div>
+                    </div>
             {% endfor %}
             </div>
         </section>
 
 
-        </section>
+        <!-- <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var typedText = new Typed("#make_blog", {
+                    strings: ["Make your blogs👋"],
+                    typeSpeed: 100,
+                    backSpeed: 50,
+                    backDelay: 1000,
+                    loop: true
+                });
+            });
+        </script> -->
+
         <script src="{{url_for('static',filename='script.js')}}" async defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    
+    <footer>
+        <div class="foot">
+            <div id="logo">
+                <img src="{{url_for('static',filename='images/venkat_title.png')}}" alt="Venkat">
+            </div>
+            <div>
+                <p>&copy; 2025 BlogMines | Built by Venkat</p>
+                <ul class="footer-links">
+                    <li><a href="{{url_for('base')}}">Home</a></li>
+                    <li><a href="https://grvenkat40-portfolio.onrender.com/">Portfolio</a></li>
+                    <li><a href="{{url_for('contact')}}">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
     </body>
 </html>

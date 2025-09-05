@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,flash,redirect,url_for
+from flask import Flask,render_template,request,flash,redirect,url_for,session
 import mysql.connector
 import os
 from werkzeug.utils import secure_filename
@@ -34,6 +34,7 @@ def login():
         db.close()
 
         if user_there:
+            session['userid']=userid
             flash("Login Success ✅")   
             return redirect(url_for('base'))
         else:
@@ -107,12 +108,24 @@ def base():
         title=request.form.get('title')
         description=request.form.get('description')
         file=request.files.get('fileInput')
+        userid=session.get('userid')
 
 
         db=db_connection_func()
         cursor=db.cursor()
         try:
-            table_query='CREATE TABLE IF NOT EXISTS blog_submission(Id int AUTO_INCREMENT primary key,title varchar(100) NOT NULL ,description TEXT NOT NULL,file_path varchar(90),created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)'
+            # table_query='CREATE TABLE IF NOT EXISTS blog_submission(Id int AUTO_INCREMENT primary key,title varchar(100) NOT NULL ,description TEXT NOT NULL,file_path varchar(90),created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)'
+            table_query = '''
+            CREATE TABLE IF NOT EXISTS blog_submissions(
+                Id INT AUTO_INCREMENT PRIMARY KEY,
+                userid VARCHAR(50) NOT NULL,
+                title VARCHAR(100) NOT NULL,
+                description TEXT NOT NULL,
+                file_path VARCHAR(90),
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+            '''
+
 
             cursor.execute(table_query)
             file_path=None
@@ -121,15 +134,14 @@ def base():
             #     file.save(file_path)
             if file and file.filename != "":
                 filename = secure_filename(file.filename)
-    # Save to static/uploads
                 file.save(os.path.join(UPLOAD_FOLDER, filename))
-    # Save only "uploads/filename" to DB
-                file_path = os.path.join('uploads', filename)
+                # file_path = os.path.join('uploads', filename)
+                file_path=f'uploads/{filename}'
             else:
                 file_path = None
             
-            insert_query="INSERT INTO blog_submission(title,description,file_path)values (%s,%s,%s)"
-            value=(title,description,file_path)
+            insert_query="INSERT INTO blog_submissions(userid,title,description,file_path)values (%s,%s,%s,%s)"
+            value=(userid,title,description,file_path)
             cursor.execute(insert_query,value)
             db.commit()
             flash(f"{title} is uploaded ✅")
@@ -142,13 +154,18 @@ def base():
     
     db=db_connection_func()
     cursor=db.cursor(dictionary=True)
-    get_query="SELECT * FROM blog_submission order by created_at desc"
+    get_query="SELECT * FROM blog_submissions order by created_at desc"
     cursor.execute(get_query)
     blogs=cursor.fetchall()
     cursor.close()
     db.close()
 
     return render_template('Base.html',blogs=blogs)
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
             
 @app.route('/menu')
 def menu():
