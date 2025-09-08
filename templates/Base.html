@@ -18,10 +18,10 @@
                 <li><a href="{{url_for('logout')}}" class="logout-link">Logout</a> </li>
             </ul>
         </header>
-        <div>
+        <div id='section_head'>
             <h2 id="make_blog">Make your blogs👋</h2>
         </div>
-        <section class="section_head">
+        <section class="section_head" >
             <div class="BlogForm">
                 <form method="post" action="" enctype="multipart/form-data">
                     <label for="title">Title</label>
@@ -31,8 +31,9 @@
                     <div id="buttons">
                         <button type="submit">Submit</button>
                         <button type="reset">Clear</button>
+                        <input type="file" name="fileInput" id="fileInput" accept="image/*" hidden required>
                         <label for="fileInput" class="file-upload">📂 Choose Image</label>
-                        <input type="file" name="fileInput" id="fileInput" accept="image/*">
+
                         <!-- <input type="file" placeholder="Choose Image"> -->
                     </div>
                 </form>
@@ -83,7 +84,7 @@
             });
         </script> -->
 
-        <script src="{{url_for('static',filename='script.js')}}" async defer></script>
+        <!-- <script src="{{url_for('static',filename='script.js')}}" async defer></script> -->
         <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     
     <footer>
@@ -91,10 +92,10 @@
             <div id="logo">
                 <img src="{{url_for('static',filename='images/venkat_title.png')}}" alt="Venkat">
             </div>
-            <div>
+            <div id='link'>
                 <p>&copy; 2025 BlogMines | Built by Venkat</p>
                 <ul class="footer-links">
-                    <li><a href="{{url_for('base')}}">Home</a></li>
+                    <li><a href="#section_head">Home</a></li>
                     <li><a href="https://grvenkat40-portfolio.onrender.com/">Portfolio</a></li>
                     <li><a href="{{url_for('contact')}}">Contact</a></li>
                 </ul>

@@ -27,7 +27,8 @@
                 <button type="submit">Submit</button>
             </form>
         </div>
-        <p>If you are new, Please <a href="{{url_for('register') }}">Register First-></a></p>
+    
+        <p>If you are new, Please <a href="{{url_for('register') }}" id="a">Register First-></a></p>
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <script>

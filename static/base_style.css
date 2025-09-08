@@ -37,6 +37,10 @@ header img {
     height: 50px;   
     width: auto;  
     margin-left: 20px;
+    transition: transform 0.7s ease-in-out;
+}
+header img:hover{
+    transform: rotateY(360deg)scale(1.5);
 }
 
 header h2{
@@ -197,6 +201,11 @@ input:required:invalid {
     transform: scale(1.04);
     background: #357abd;
 }
+#fileInput:valid + .file-upload {
+    background: #26f337;
+    transform:skew(10deg)
+}
+
 .blogs-{
     display: flex;
     flex-direction: column;
@@ -296,4 +305,42 @@ footer{
     margin-top: 10px;
     height: 100px;
     width: auto;
+    transition: transform 0.5s ease-in;
+}
+#logo img:hover{
+        transform: rotateX(360deg)scale(1.5);
+}
+#link{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 200px;
+}
+#link p{
+    margin-right: 160px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bolder;
+    font-size: larger;
+    color: antiquewhite;
+}
+.footer-links{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.footer-links a{
+    color: aliceblue;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgb(0, 225, 255);
+    text-decoration: none;
+} 
+.footer-links a:hover{
+    border-left: 10px solid greenyellow;
+    border-right: 10px solid greenyellow;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+
 }

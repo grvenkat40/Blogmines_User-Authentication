@@ -30,15 +30,23 @@ def login():
         value=(userid,password)
         cursor.execute(get_query,value)
         user_there=cursor.fetchone()
-        cursor.close()
-        db.close()
-
+        
         if user_there:
             session['userid']=userid
+            table_query="CREATE TABLE IF NOT EXISTS user_login(Id int AUTO_INCREMENT primary key,userid varchar(50),password varchar(100),login_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP)"
+            cursor.execute(table_query)
+            insert_log="INSERT INTO user_login(userid,password) VALUES(%s,%s)"
+            values=(userid,password)
+            cursor.execute(insert_log,values)
+            db.commit()
+            cursor.close()
+            db.close()
             flash("Login Success ✅")   
             return redirect(url_for('base'))
         else:
-            flash("Invalid credentials! Please register or try again.🤨👇")
+            cursor.close()
+            db.close()
+            flash("❌ Invalid credentials! Please register or try again.🤨👇")
             return redirect(url_for('register'))
 
     return render_template('Login.html')
