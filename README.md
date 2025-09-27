@@ -21,11 +21,4 @@ Blogsmine is a simple and user-friendly blog application built with **Flask**. U
 - **Templates:** Jinja2  
 - **Version Control:** Git/GitHub  
 
----
 
-## Installation
-
-1. **Clone the repository**
-```bash
-git clone https://github.com/yourusername/Blogsmine.git
-cd Blogsmine
