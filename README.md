@@ -16,9 +16,8 @@ Blogsmine is a simple and user-friendly blog application built with **Flask**. U
 
 ## Technologies
 - **Backend:** Python, Flask  
-- **Frontend:** HTML, CSS, Bootstrap  
-- **Database:** SQLite  
-- **Templates:** Jinja2  
+- **Frontend:** HTML, CSS  
+- **Database:** MYSQL  
 - **Version Control:** Git/GitHub  
 
 
